@@ -80,8 +80,17 @@ function Ball(xcor, ycor, xvel, yvel, diameter,colo) {
 		  	this.velocity.x = -this.velocity.x;
 		  }
 		  //Update Ball's position 
+
 		  this.xcor += this.velocity.x +/*+=*/ ((Math.abs(this.velocity.x) > 0)? -0.025:0.025);
 		  this.ycor += this.velocity.y +/*+=*/ ((Math.abs(this.velocity.y) > 0)? -0.025:0.025);
+		  if (mouseIsPressed && mouseX < width && mouseX > 0){
+  			var DIST = dist(this.xcor,this.ycor,mouseX,mouseY);
+  			// var gravity = 0.1;
+ 			// balls[i].velocity.x += -(mouseX-balls[i].xcor)*gravity/Math.pow(DIST,2);
+  			// balls[i].velocity.y += -(mouseY-balls[i].ycor)*gravity/Math.pow(DIST,2); 		
+		  this.velocity.x += -(mouseX-this.xcor)*((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):150)/Math.pow(DIST,2);
+  		  this.velocity.y += -(mouseY-this.ycor) *((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):150)/Math.pow(DIST,2);
+  		}
 		  this.checkself();
 		  //draw the Ball:
 		  fill(colo);
@@ -105,14 +114,7 @@ function Ball(xcor, ycor, xvel, yvel, diameter,colo) {
   			this.velocity.y = (-mouseYV/2) + (-1 + (Math.random() * 1));
   			this.velocity.x = (-mouseXV/2) + (-1 + (Math.random() * 1));
   		}
-  		 if (mouseIsPressed && mouseX < width && mouseX > 0){
-  			var DIST = dist(balls[i].xcor,balls[i].ycor,mouseX,mouseY);
-  			// var gravity = 0.1;
- 			// balls[i].velocity.x += -(mouseX-balls[i].xcor)*gravity/Math.pow(DIST,2);
-  			// balls[i].velocity.y += -(mouseY-balls[i].ycor)*gravity/Math.pow(DIST,2);
-  			balls[i].velocity.x += -(mouseX-balls[i].xcor)*((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):1.1)/Math.pow(DIST,2);
-  			balls[i].velocity.y += -(mouseY-balls[i].ycor) *((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):1.1)/Math.pow(DIST,2);
-  		}
+  		 
   		}
   	}
 }
