@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+	<title>Processing</title>
+	<h1 role = "title">BALLS</h1>
+	<p role = "info">I created this </p>
+	<input type = "numbers" id = "gravity" placeholder = "numbers"/>
+	<script src="http://ideone.com/e.js/5ABgyq" type="text/javascript" ></script>
+</body>
+<script src = "p5/p5.min.js"></script>
+<script>
+//Bouncing ball using classes and arrays
+var oldx = 0;
+var oldy = 0;
+var mouseYV = 0;
+var mouseXV = 0;
+function mousev(){
+	mouseYV = oldy-mouseY;
+	mouseXV = oldx-mouseX;
+	oldx = mouseX;
+	oldy = mouseY;
+
+}
+var balls = [];//create list of 10 balls
+function setup(){//executed only once
+  createCanvas(window.innerWidth,window.innerHeight);
+  background(0);//black
+  for (var i= 0;i<100;i++){
+    var x = color(random(40,255),random(40,255),random(40,255));
+    balls.push(new Ball((1+(Math.random() * width-1)+1) ,1+((Math.random() * height-1)+1),5,5,40,x));
+  }
+}
+function windowResized(){
+	createCanvas(window.innerWidth,window.innerHeight);
+}
+function draw(){//infinite loop
+  //frameRate(4);
+  //black, semi-transparent
+  //rect(0,0,width,height);
+  mousev();
+  background(0,100);
+  for (var i= 0;i<balls.length;i++){
+  balls[i].update();
+  }
+
+    //balls.push(new Ball(((Math.random() * width-1)+1) ,((Math.random() * height-1)+1),(1+(Math.random() * 10)),(1+(Math.random() * 10)),15,x));
+    if (balls.length > 1000){
+    	balls.splice(0,balls.length);
+    }
+}
+
+function Ball(xcor, ycor, xvel, yvel, diameter,colo) {
+	this.velocity = createVector(xvel,yvel);
+	this.xcor = xcor;
+	this.ycor = ycor;				
+	this.diameter=diameter;
+	this.colo = colo;
+  	this.update=function(){//This is how you update the Ball's velocity:
+		if((this.ycor < this.diameter)){
+			while(this.ycor < this.diameter){
+				this.ycor++;// * (1.0+(float)Math.random());
+			}
+				this.velocity.y = -this.velocity.y;
+			}
+		  if (this.ycor>(height-diameter)){
+		  	while(this.ycor>(height-diameter)){ // if It's stuck in a 
+		  		this.ycor--;
+		  	}
+		  	this.velocity.y = -this.velocity.y
+		  }
+			if((this.xcor> width-this.diameter)){
+				while((this.xcor > width-this.diameter)){
+			this.xcor--;//* (1.0+(float)Math.random());
+			}
+			this.velocity.x = -this.velocity.x;
+		}
+		  if(this.xcor < this.diameter){
+		  	while(this.xcor < this.diameter){
+		  		this.xcor++;
+		  	}
+		  	this.velocity.x = -this.velocity.x;
+		  }
+		  //Update Ball's position 
+		  this.xcor += this.velocity.x +/*+=*/ ((Math.abs(this.velocity.x) > 0)? -0.025:0.025);
+		  this.ycor += this.velocity.y +/*+=*/ ((Math.abs(this.velocity.y) > 0)? -0.025:0.025);
+		  this.checkself();
+		  //draw the Ball:
+		  fill(colo);
+
+		  noStroke();
+		  ellipse(this.xcor,this.ycor,this.diameter,this.diameter);
+  }
+  this.checkself = function(){
+  	for (var i = 0; i < balls.length;i++){
+  		if (balls[i] === this){
+  			continue;
+  		} if (dist(balls[i].xcor,balls[i].ycor,this.xcor,this.ycor) < (this.diameter)){
+  			var temp = this.velocity;
+  			this.velocity = balls[i].velocity;
+  			balls[i].velocity = temp;
+  			balls[i].velocity.x /= 1.009;
+  			balls[i].velocity.y /= 1.009;
+  			this.velocity.x /= 1.009;
+  			this.velocity.y /= 1.009;
+  		} if (dist(this.xcor,this.ycor,mouseX,mouseY) < 50 && mouseXV + mouseYV> 1){
+  			this.velocity.y = (-mouseYV/2) + (-1 + (Math.random() * 1));
+  			this.velocity.x = (-mouseXV/2) + (-1 + (Math.random() * 1));
+  		} if (mouseIsPressed && mouseX < width && mouseX > 0){
+  			var DIST = dist(balls[i].xcor,balls[i].ycor,mouseX,mouseY);
+  			balls[i].velocity.x += (mouseX-ball[i].xcor)*((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):50)/Math.pow(DIST,2);
+  			balls[i].velocity.y += (mouseY-ball[i].ycor) *((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):50)/Math.pow(DIST,2);
+  		}
+  		}
+  	}
+}
+</script>
+
+</html>
