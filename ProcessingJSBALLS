@@ -107,8 +107,8 @@ function Ball(xcor, ycor, xvel, yvel, diameter,colo) {
   			this.velocity.x = (-mouseXV/2) + (-1 + (Math.random() * 1));
   		} if (mouseIsPressed && mouseX < width && mouseX > 0){
   			var DIST = dist(balls[i].xcor,balls[i].ycor,mouseX,mouseY);
-  			balls[i].velocity.x += (mouseX-ball[i].xcor)*((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):50)/Math.pow(DIST,2);
-  			balls[i].velocity.y += (mouseY-ball[i].ycor) *((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):50)/Math.pow(DIST,2);
+  			balls[i].velocity.x += -(mouseX-ball[i].xcor)*((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):50)/Math.pow(DIST,2);
+  			balls[i].velocity.y += -(mouseY-ball[i].ycor) *((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):50)/Math.pow(DIST,2);
   		}
   		}
   	}
