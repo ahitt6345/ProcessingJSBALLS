@@ -7,7 +7,7 @@
 	<input type = "numbers" id = "gravity" placeholder = "numbers"/>
 	<script src="http://ideone.com/e.js/5ABgyq" type="text/javascript" ></script>
 </body>
-<script src = "p5/p5.min.js"></script>
+<script src = "http://students.learningtech.org/~ahitt.ra/p5/p5.min.js"></script>
 <script>
 //Bouncing ball using classes and arrays
 var oldx = 0;
@@ -104,10 +104,14 @@ function Ball(xcor, ycor, xvel, yvel, diameter,colo) {
   		} if (dist(this.xcor,this.ycor,mouseX,mouseY) < 50 && mouseXV + mouseYV> 1){
   			this.velocity.y = (-mouseYV/2) + (-1 + (Math.random() * 1));
   			this.velocity.x = (-mouseXV/2) + (-1 + (Math.random() * 1));
-  		} if (mouseIsPressed && mouseX < width && mouseX > 0){
+  		}
+  		 if (mouseIsPressed && mouseX < width && mouseX > 0){
   			var DIST = dist(balls[i].xcor,balls[i].ycor,mouseX,mouseY);
-  			balls[i].velocity.x += -(mouseX-ball[i].xcor)*((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):50)/Math.pow(DIST,2);
-  			balls[i].velocity.y += -(mouseY-ball[i].ycor) *((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):50)/Math.pow(DIST,2);
+  			// var gravity = 0.1;
+ 			// balls[i].velocity.x += -(mouseX-balls[i].xcor)*gravity/Math.pow(DIST,2);
+  			// balls[i].velocity.y += -(mouseY-balls[i].ycor)*gravity/Math.pow(DIST,2);
+  			balls[i].velocity.x += -(mouseX-balls[i].xcor)*((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):1.1)/Math.pow(DIST,2);
+  			balls[i].velocity.y += -(mouseY-balls[i].ycor) *((/\d/.test(document.getElementById("gravity").value))?parseInt(document.getElementById("gravity").value):1.1)/Math.pow(DIST,2);
   		}
   		}
   	}
