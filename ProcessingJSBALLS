@@ -19,10 +19,9 @@ function mousev(){
 	mouseXV = oldx-mouseX;
 	oldx = mouseX;
 	oldy = mouseY;
-
 }
-var balls = [];//create list of 10 balls
-function setup(){//executed only once
+var balls = [];//maganaging the balls
+function setup(){//creating canvas and BALLS
   createCanvas(window.innerWidth,window.innerHeight);
   background(0);//black
   for (var i= 0;i<100;i++){
@@ -30,7 +29,7 @@ function setup(){//executed only once
     balls.push(new Ball((1+(Math.random() * width-1)+1) ,1+((Math.random() * height-1)+1),5,5,40,x));
   }
 }
-function windowResized(){
+function windowResized(){ // if user changes window size, canvas changes
 	createCanvas(window.innerWidth,window.innerHeight);
 }
 function draw(){//infinite loop
