@@ -20,7 +20,7 @@ function mousev(){
 	oldx = mouseX;
 	oldy = mouseY;
 }
-var balls = [];//maganaging the balls
+var balls = [];//managing the balls
 function setup(){//creating canvas and BALLS
   createCanvas(window.innerWidth,window.innerHeight);
   background(0);//black
