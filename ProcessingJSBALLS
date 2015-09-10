@@ -7,7 +7,7 @@
 	<input type = "numbers" id = "gravity" placeholder = "numbers"/>
 	<script src="http://ideone.com/e.js/5ABgyq" type="text/javascript" ></script>
 </body>
-<script src = "http://students.learningtech.org/~ahitt.ra/p5/p5.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.9/p5.min.js"></script>
 <script>
 //Bouncing ball using classes and arrays
 var oldx = 0;
